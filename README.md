@@ -1,9 +1,11 @@
 # fibril-cyclization
 
 **About**
+
 This repository contains RosettaScript scripts to cyclize the protein fibrils.
 
-[Figures]
+![alt text](https://github.com/PlotkinLab/fibril-cyclization/workflow.png?raw=true)
+
 The following movers were applied in sequence during the procedure.
 
 First, we used PeptideStubMover to add glycines on the side-most peptide chain. Then, we used PeptideCyclizeMover and DeclareBond mover to set up the energy function for a head-to-tail peptide bond on the side-most peptide chain. Finally, we used the GeneralizedKIC mover to sample various linker conformations that cyclize the side-most peptide without clashes.
@@ -14,10 +16,10 @@ Sequence design was performed using the FastDesign mover with resfile restraints
 
 
 **How to run the scipt?**
-`./run.sh`
-Before running the script, edit the $ROSETTA3 to be your Rosetta installed path
 
-**How to customize the script for other fibrils?**
+`./run.sh`
+
+Before running the script, edit the `$ROSETTA3` to be your Rosetta installed path
 
 
 ## Reference
