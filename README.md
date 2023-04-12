@@ -22,6 +22,12 @@ Sequence design was performed using the FastDesign mover with resfile restraints
 Before running the script, edit the `$ROSETTA3` to be your Rosetta installed path
 
 
+**Output**
+
+`score.sc` file contains the values of the energy function components and user-defined filter values.
+
+`out.silent` file contains the compressed format of the designed structures
+
 ## Reference
 
 The development of fibril-cyclization scripts is funded by academic research grants. To help us fund development, we humbly ask that you cite the following papers:

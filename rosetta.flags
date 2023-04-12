@@ -1,0 +1,9 @@
+-in:file:s prot_permute.pdb
+-parser:protocol run.xml
+-run:preserve_header
+-overwrite
+-nstruct 1000000
+-out:file:silent out.silent
+-out:file:scorefile score.sc
+-holes::dalphaball $ROSETTA3/external/DAlpahBall/DAlphaBall.gcc
+-mute all
