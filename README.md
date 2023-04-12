@@ -4,7 +4,7 @@
 
 This repository contains RosettaScript scripts to cyclize the protein fibrils.
 
-![alt text](https://github.com/PlotkinLab/fibril-cyclization/workflow.png?raw=true)
+![alt text](https://github.com/PlotkinLab/fibril-cyclization/blob/main/workflow.png?raw=true)
 
 The following movers were applied in sequence during the procedure.
 
