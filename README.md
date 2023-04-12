@@ -22,7 +22,7 @@ Sequence design was performed using the FastDesign mover with resfile restraints
 Before running the script, edit the `$ROSETTA3` to be your Rosetta installed path
 
 
-**Ooutput**
+**Output**
 
 `score.sc` file contains the values of the energy function components and user-defined filter values.
 
