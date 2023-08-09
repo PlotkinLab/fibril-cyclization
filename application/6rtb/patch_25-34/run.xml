@@ -1,0 +1,355 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+		<ScoreFunction name="score_cst" weights="ref2015" >
+			<Reweight scoretype="coordinate_constraint" weight="1" />
+			<Reweight scoretype="atom_pair_constraint" weight="1" />
+			<Reweight scoretype="dihedral_constraint" weight="100" />
+			<Reweight scoretype="angle_constraint" weight="1" />
+			<Reweight scoretype="res_type_constraint" weight="1" />
+		</ScoreFunction>
+		<ScoreFunction name="score_cart" weights="ref2015" >
+			<Reweight scoretype="cart_bonded" weight="0.5" />
+			<Reweight scoretype="pro_close" weight="0.0" />
+		</ScoreFunction>
+		<ScoreFunction name="score_STD" weights="ref2015" />
+		<ScoreFunction name="bb_only" weights="empty.wts" >
+			<Reweight scoretype="fa_rep" weight="0.1" />
+			<Reweight scoretype="fa_atr" weight="0.2" />
+			<Reweight scoretype="hbond_sr_bb" weight="2.0" />
+			<Reweight scoretype="hbond_lr_bb" weight="2.0" />
+			<Reweight scoretype="rama_prepro" weight="0.45" />
+			<Reweight scoretype="omega" weight="0.4" />
+			<Reweight scoretype="p_aa_pp" weight="0.6" />
+		</ScoreFunction>
+	</SCOREFXNS>
+	<PACKER_PALETTES>
+		<CustomBaseTypePackerPalette name="palette" additional_residue_types="DALA,DCYS,DASP,DGLU,DPHE,DHIS,DILE,DLYS,DLEU,DMET,DASN,DPRO,DGLN,DARG,DSER,DTHR,DVAL,DTRP,DTYR" />
+	</PACKER_PALETTES>
+	<RESIDUE_SELECTORS>
+		<Chain name="chain_A" chains="A"/>
+		<Chain name="chain_B" chains="B"/>
+		<Chain name="chain_C" chains="C"/>
+		<Chain name="chain_D" chains="D"/>
+		<Chain name="chain_E" chains="E"/>
+		Index name="N_ter" resnums="338A,338C,338E,338G,338I,337A,337C,337E,337G,337I"/>
+		Index name="C_ter" resnums="356A,356C,356E,356G,356I"/>
+		<Index name="Glys" resnums="17-26,97-106,177-186,257-266,337-346"/>
+		<Index name="Glys_neighbor" resnums="16-27,96-107,176-187,256-267,336-347"/>
+		Index name="chain_B_gly" resnums="22-24"/>
+		Index name="chain_A_C_gly" resnums="3-5,41-43"/>
+		<Index name="chain_C_gly" resnums="177-186"/>
+		<Index name="chain_B_D_gly" resnums="97-106,257-266"/>
+		<Index name="chain_C_true" resnums="161-240"/>
+		<Index name="chain_B_D_true" resnums="80-160,241-320"/>
+		<Phi name="posPhi" select_positive_phi="true" />
+		<Phi name="negPhi" select_positive_phi="false" />
+		<Index name="linker_1" resnums="17-26" />
+		<Index name="linker_2" resnums="97-106" />
+		<Index name="linker_3" resnums="177-186" />
+		<Index name="linker_4" resnums="257-266" />
+		<Index name="linker_5" resnums="337-346" />
+	</RESIDUE_SELECTORS>
+	<TASKOPERATIONS>
+		ReadResfile name="d_res" filename="d_res.txt" selector="posPhi"/>
+		ReadResfile name="l_res" filename="l_res.txt" selector="negPhi"/>
+		<ReadResfile name="resfile" filename="resfile.txt"/>
+		<KeepSequenceSymmetry name="keep_seq_sym" setting="true" />
+	</TASKOPERATIONS>
+	<MOVE_MAP_FACTORIES>
+		<MoveMapFactory name="mm_bb" bb="1" chi="0"/>
+		<MoveMapFactory name="mm_fix" bb="0" chi="0"/>
+	</MOVE_MAP_FACTORIES>
+	<SIMPLE_METRICS>
+		<InteractionEnergyMetric name="interaction_glys" residue_selector="chain_C_gly" residue_selector2="chain_B_D_gly" scorefxn="score_STD"/>
+		<InteractionEnergyMetric name="interaction_interchain" residue_selector="chain_C_true" residue_selector2="chain_B_D_true" scorefxn="score_STD"/>
+	</SIMPLE_METRICS>
+	<FILTERS>
+		###Filters for assessing the design
+                <Holes name="full_holes" threshold="1.8" normalize_per_residue="1" confidence="0"/>
+                <PackStat name="filter_packstat" threshold="0" chain="0" repeats="1"/>
+		<BuriedSurfaceArea name="filter_hydrophobic" select_only_FAMILYVW="true" filter_out_low="true" cutoff_buried_surface_area="500" confidence="0"/>
+		<BuriedUnsatHbonds name="buns_all_heavy_ball" report_all_heavy_atom_unsats="true" cutoff="4" residue_surface_cutoff="20.0" ignore_surface_res="true" print_out_info_to_pdb="true" dalphaball_sasa="1" probe_radius="1.1" confidence="0" />
+		<Torsion name="torsion_1_phi" torsion="phi" resnum="16" confidence="0"/>
+		<Torsion name="torsion_2_phi" torsion="phi" resnum="17" confidence="0"/>
+		<Torsion name="torsion_3_phi" torsion="phi" resnum="18" confidence="0"/>
+		<Torsion name="torsion_4_phi" torsion="phi" resnum="19" confidence="0"/>
+		<Torsion name="torsion_5_phi" torsion="phi" resnum="20" confidence="0"/>
+		<Torsion name="torsion_6_phi" torsion="phi" resnum="21" confidence="0"/>
+		<Torsion name="torsion_7_phi" torsion="phi" resnum="22" confidence="0"/>
+		<Torsion name="torsion_8_phi" torsion="phi" resnum="23" confidence="0"/>
+		<Torsion name="torsion_9_phi" torsion="phi" resnum="24" confidence="0"/>
+		<Torsion name="torsion_10_phi" torsion="phi" resnum="25" confidence="0"/>
+		<Torsion name="torsion_11_phi" torsion="phi" resnum="26" confidence="0"/>
+		<Torsion name="torsion_12_phi" torsion="phi" resnum="27" confidence="0"/>
+                                                                    
+		<Torsion name="torsion_1_psi" torsion="psi" resnum="16" confidence="0"/>
+		<Torsion name="torsion_2_psi" torsion="psi" resnum="17" confidence="0"/>
+		<Torsion name="torsion_3_psi" torsion="psi" resnum="18" confidence="0"/>
+		<Torsion name="torsion_4_psi" torsion="psi" resnum="19" confidence="0"/>
+		<Torsion name="torsion_5_psi" torsion="psi" resnum="20" confidence="0"/>
+		<Torsion name="torsion_6_psi" torsion="psi" resnum="21" confidence="0"/>
+		<Torsion name="torsion_7_psi" torsion="psi" resnum="22" confidence="0"/>
+		<Torsion name="torsion_8_psi" torsion="psi" resnum="23" confidence="0"/>
+		<Torsion name="torsion_9_psi" torsion="psi" resnum="24" confidence="0"/>
+		<Torsion name="torsion_10_psi" torsion="psi" resnum="25" confidence="0"/>
+		<Torsion name="torsion_11_psi" torsion="psi" resnum="26" confidence="0"/>
+		<Torsion name="torsion_12_psi" torsion="psi" resnum="27" confidence="0"/>
+
+		HbondsToResidue name="hbonds_1" scorefxn="score_STD" partners="0" energy_cutoff="-0.25" backbone="true" bb_bb="true" sidechain="false" residue="41" from_other_chains="true" from_same_chain="true" />
+		HbondsToResidue name="hbonds_2" scorefxn="score_STD" partners="0" energy_cutoff="-0.25" backbone="true" bb_bb="true" sidechain="false" residue="42" from_other_chains="true" from_same_chain="true" />
+		HbondsToResidue name="hbonds_3" scorefxn="score_STD" partners="0" energy_cutoff="-0.25" backbone="true" bb_bb="true" sidechain="false" residue="43" from_other_chains="true" from_same_chain="true" />
+		<PeptideInternalHbondsFilter name="count_bb_hbonds_glys" backbone_backbone="true" backbone_sidechain="false" sidechain_sidechain="false" exclusion_distance="1" hbond_energy_cutoff="-0.25" residue_selector="Glys_neighbor" hbond_cutoff="3" confidence="0" />
+		<PeptideInternalHbondsFilter name="count_hbonds_glys" backbone_backbone="true" backbone_sidechain="true" sidechain_sidechain="true" exclusion_distance="1" hbond_energy_cutoff="-0.25" residue_selector="Glys_neighbor" hbond_cutoff="3" confidence="0" />
+
+		<ExposedHydrophobics name="exposed_hydrophobics" sasa_cutoff="20" threshold="100000" />
+		<ScorePoseSegmentFromResidueSelectorFilter name="energy_glys" residue_selector="Glys" scorefxn="score_STD" confidence="0" />
+		<SimpleMetricFilter name="filter_interaction_glys" metric="interaction_glys" cutoff="100000" comparison_type="lt"/>
+		<SimpleMetricFilter name="filter_interaction_interchain" metric="interaction_interchain" cutoff="100000" comparison_type="lt"/>
+		<Report name="filter_interaction_glys_nodesign" filter="filter_interaction_glys"/>
+		<Report name="filter_interaction_interchain_nodesign" filter="filter_interaction_interchain"/>
+		<Report name="count_bb_hbonds_glys_nodesign" filter="count_bb_hbonds_glys"/>
+	</FILTERS>
+	<MOVERS>
+		<PeptideStubMover name="add_loop_residues_A" >
+			<Insert anchor_rsd="16" resname="GLY" />
+			<Insert anchor_rsd="17" resname="GLY" />
+			<Insert anchor_rsd="18" resname="GLY" />
+			<Insert anchor_rsd="19" resname="GLY" />
+			<Insert anchor_rsd="20" resname="GLY" />
+			<Prepend anchor_rsd="22" resname="GLY" />
+			<Prepend anchor_rsd="22" resname="GLY" />
+			<Prepend anchor_rsd="22" resname="GLY" />
+			<Prepend anchor_rsd="22" resname="GLY" />
+			<Prepend anchor_rsd="22" resname="GLY" />
+		</PeptideStubMover>
+
+		<PeptideCyclizeMover name="close_A" >
+		    <Torsion res1="15" res2="15" res3="16" res4="16" atom1="CA" atom2="C" atom3="N" atom4="CA" cst_func="CIRCULARHARMONIC 3.141592654 0.005" />
+		    <Angle res1="15" atom1="CA" res_center="15" atom_center="C" res2="16" atom2="N" cst_func="HARMONIC 2.01000000 0.01" />
+		    <Angle res1="15" atom1="C" res_center="16" atom_center="N" res2="16" atom2="CA" cst_func="HARMONIC 2.14675498 0.01" />
+		    <Distance res1="15" res2="16" atom1="C" atom2="N" cst_func="HARMONIC 1.32865 0.01" />
+		    <Bond res1="15" res2="16" atom1="C" atom2="N" add_termini="true" />
+		</PeptideCyclizeMover>
+		<PeptideCyclizeMover name="close_B" >
+		    <Torsion res1="95" res2="95" res3="96" res4="96" atom1="CA" atom2="C" atom3="N" atom4="CA" cst_func="CIRCULARHARMONIC 3.141592654 0.005" />
+		    <Angle res1="95" atom1="CA" res_center="95" atom_center="C" res2="96" atom2="N" cst_func="HARMONIC 2.01000000 0.01" />
+		    <Angle res1="95" atom1="C" res_center="96" atom_center="N" res2="96" atom2="CA" cst_func="HARMONIC 2.14675498 0.01" />
+		    <Distance res1="95" res2="96" atom1="C" atom2="N" cst_func="HARMONIC 1.32865 0.01" />
+		    <Bond res1="95" res2="96" atom1="C" atom2="N" add_termini="true" />
+		</PeptideCyclizeMover>
+		<PeptideCyclizeMover name="close_C" >
+		    <Torsion res1="175" res2="175" res3="176" res4="176" atom1="CA" atom2="C" atom3="N" atom4="CA" cst_func="CIRCULARHARMONIC 3.141592654 0.005" />
+		    <Angle res1="175" atom1="CA" res_center="175" atom_center="C" res2="176" atom2="N" cst_func="HARMONIC 2.01000000 0.01" />
+		    <Angle res1="175" atom1="C" res_center="176" atom_center="N" res2="176" atom2="CA" cst_func="HARMONIC 2.14675498 0.01" />
+		    <Distance res1="175" res2="176" atom1="C" atom2="N" cst_func="HARMONIC 1.32865 0.01" />
+		    <Bond res1="175" res2="176" atom1="C" atom2="N" add_termini="true" />
+		</PeptideCyclizeMover>
+		<PeptideCyclizeMover name="close_D" >
+		    <Torsion res1="255" res2="255" res3="256" res4="256" atom1="CA" atom2="C" atom3="N" atom4="CA" cst_func="CIRCULARHARMONIC 3.141592654 0.005" />
+		    <Angle res1="255" atom1="CA" res_center="255" atom_center="C" res2="256" atom2="N" cst_func="HARMONIC 2.01000000 0.01" />
+		    <Angle res1="255" atom1="C" res_center="256" atom_center="N" res2="256" atom2="CA" cst_func="HARMONIC 2.14675498 0.01" />
+		    <Distance res1="255" res2="256" atom1="C" atom2="N" cst_func="HARMONIC 1.32865 0.01" />
+		    <Bond res1="255" res2="256" atom1="C" atom2="N" add_termini="true" />
+		</PeptideCyclizeMover>
+		<PeptideCyclizeMover name="close_E" >
+		    <Torsion res1="335" res2="335" res3="336" res4="336" atom1="CA" atom2="C" atom3="N" atom4="CA" cst_func="CIRCULARHARMONIC 3.141592654 0.005" />
+		    <Angle res1="335" atom1="CA" res_center="335" atom_center="C" res2="336" atom2="N" cst_func="HARMONIC 2.01000000 0.01" />
+		    <Angle res1="335" atom1="C" res_center="336" atom_center="N" res2="336" atom2="CA" cst_func="HARMONIC 2.14675498 0.01" />
+		    <Distance res1="335" res2="336" atom1="C" atom2="N" cst_func="HARMONIC 1.32865 0.01" />
+		    <Bond res1="335" res2="336" atom1="C" atom2="N" add_termini="true" />
+		</PeptideCyclizeMover>
+		<FastRelax name="relax" scorefxn="score_cst" ramp_down_constraints="false" repeats="1">
+			<MoveMap name="frelax_mm" bb="0" chi="1" jump="0">
+				Chain number="1" chi="0" bb="0" />
+				Chain number="2" chi="0" bb="0" />
+				Chain number="3" chi="0" bb="0" />
+				Chain number="4" chi="0" bb="0" />
+				Chain number="5" chi="0" bb="0" />
+				Jump number="1" setting="0" />
+				Jump number="2" setting="0" />
+				Jump number="3" setting="0" />
+				Jump number="4" setting="0" />
+				ResidueSelector selector="Glys" chi="1" bb="1" bondangle="1" bondlength="1"/>
+				Span begin="1" end="19" chi="1" bb="1" bondangle="1" bondlength="1"/>
+			</MoveMap>
+		</FastRelax>
+		<FastRelax name="relax2" scorefxn="score_cart" ramp_down_constraints="false" repeats="2" movemap_disables_packing_of_fixed_chi_positions="true" dualspace="1">
+			<MoveMap name="frelax_mm" bb="0" chi="0" jump="0">
+			MoveMap name="frelax_mm">
+				<ResidueSelector selector="Glys_neighbor" chi="1" bb="1"/>
+				Span begin="2" end="6" bb="1" chi="0"/>
+			</MoveMap>
+		</FastRelax>
+		<FastRelax name="relax3" scorefxn="score_cart" ramp_down_constraints="false" repeats="1" dualspace="1">
+			<MoveMap name="frelax_mm" bb="1" chi="1" jump="0">
+			</MoveMap>
+		</FastRelax>
+
+		<GeneralizedKIC name="genkic1" closure_attempts="50000" stop_when_n_solutions_found="1" selector="random_selector" selector_scorefunction="score_cst" >
+			<AddResidue res_index="16" />
+			<AddResidue res_index="17" />
+			<AddResidue res_index="18" />
+			<AddResidue res_index="19" />
+			<AddResidue res_index="20" />
+			<AddResidue res_index="21" />
+			<AddResidue res_index="22" />
+			<AddResidue res_index="23" />
+			<AddResidue res_index="24" />
+			<AddResidue res_index="25" />
+			<AddResidue res_index="26" />
+			<AddResidue res_index="27" />
+			<SetPivots res1="16" atom1="CA" res2="22" atom2="CA" res3="27" atom3="CA" />
+			<AddPerturber effect="set_dihedral" >
+				<AddAtoms res1="16" atom1="C" res2="17" atom2="N" />
+				<AddAtoms res1="17" atom1="C" res2="18" atom2="N" />
+				<AddAtoms res1="18" atom1="C" res2="19" atom2="N" />
+				<AddAtoms res1="19" atom1="C" res2="20" atom2="N" />
+				<AddAtoms res1="20" atom1="C" res2="21" atom2="N" />
+				<AddAtoms res1="21" atom1="C" res2="22" atom2="N" />
+				<AddAtoms res1="22" atom1="C" res2="23" atom2="N" />
+				<AddAtoms res1="23" atom1="C" res2="24" atom2="N" />
+				<AddAtoms res1="24" atom1="C" res2="25" atom2="N" />
+				<AddAtoms res1="25" atom1="C" res2="26" atom2="N" />
+				<AddAtoms res1="26" atom1="C" res2="27" atom2="N" />
+				<AddValue value="180.0" />
+			</AddPerturber>
+			CloseBond prioratom_res="3" prioratom="CA" res1="3" atom1="C" res2="4" atom2="N" followingatom_res="4" followingatom="CA" bondlength="1.32865" angle1="121.699997" angle2="116.199993" torsion="180.0" />
+			<CloseBond res1="21" atom1="C" res2="22" atom2="N" bondlength="1.32865" angle1="121.699997" angle2="116.199993" torsion="180.0" />
+			<AddPerturber effect="randomize_backbone_by_rama_prepro">
+				<AddResidue index="16" />
+				<AddResidue index="17" />
+				<AddResidue index="18" />
+				<AddResidue index="19" />
+				<AddResidue index="20" />
+				<AddResidue index="21" />
+				<AddResidue index="22" />
+				<AddResidue index="23" />
+				<AddResidue index="24" />
+				<AddResidue index="25" />
+				<AddResidue index="26" />
+				<AddResidue index="27" />
+			</AddPerturber>
+			AddFilter type="backbone_bin" residue="38" bin_params_file="ABBA" bin="B" />
+			AddFilter type="backbone_bin" residue="39" bin_params_file="ABBA" bin="B" />
+			AddFilter type="backbone_bin" residue="40" bin_params_file="ABBA" bin="B" />
+			AddFilter type="backbone_bin" residue="41" bin_params_file="ABBA" bin="B" />
+			AddFilter type="backbone_bin" residue="42" bin_params_file="ABBA" bin="B" />
+			AddFilter type="backbone_bin" residue="43" bin_params_file="ABBA" bin="B" />
+			AddFilter type="backbone_bin" residue="44" bin_params_file="ABBA" bin="B" />
+			<AddFilter type="loop_bump_check" />
+			<AddFilter type="rama_prepro_check" residue="16" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="17" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="18" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="19" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="20" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="21" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="22" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="23" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="24" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="25" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="26" rama_cutoff_energy="1" />
+			<AddFilter type="rama_prepro_check" residue="27" rama_cutoff_energy="1" />
+		</GeneralizedKIC>
+
+
+		<SetupNCS name="sym" symmetric_sequence="1">
+			<NCSgroup source="1-80" target="81-160"/> 
+			<NCSgroup source="1-80" target="161-240"/> 
+			<NCSgroup source="1-80" target="241-320"/> 
+			<NCSgroup source="1-80" target="321-400"/> 
+			NCSend source="1-19" target="20-38"/> 
+			NCSend source="1-19" target="39-57"/> 
+		</SetupNCS>
+		<DeclareBond name="new_bond1" atom1="C" atom2="N" res1="21" res2="22"/>
+		<AtomTree name="tree" fold_tree_file="tree.ft"/>
+		<CCDEndsGraftMover name="graft_linker_B" start="96" end="97" spm_reference_name="linker" copy_pdbinfo="0" scaffold_flex_Nter="1" scaffold_flex_Cter="1" />
+		<CCDEndsGraftMover name="graft_linker_C" start="176" end="177" spm_reference_name="linker" copy_pdbinfo="0" scaffold_flex_Nter="1" scaffold_flex_Cter="1" />
+		<CCDEndsGraftMover name="graft_linker_D" start="256" end="257" spm_reference_name="linker" copy_pdbinfo="0" scaffold_flex_Nter="1" scaffold_flex_Cter="1" />
+		<CCDEndsGraftMover name="graft_linker_E" start="336" end="337" spm_reference_name="linker" copy_pdbinfo="0" scaffold_flex_Nter="1" scaffold_flex_Cter="1" />
+		CCDEndsGraftMover name="graft_linker" start="25" end="28" spm_reference_name="linker" copy_pdbinfo="0" insert_movemap="mm_bb" scaffold_movemap="mm_fix"/>
+
+		AnchoredGraftMover name="graft_L1" start="2" end="3" spm_reference_name="tmp2.pdb" copy_pdbinfo="0"/>
+		InsertPoseIntoPoseMover name="graft_L1" start="2" end="3" copy_pdbinfo="0" spm_reference_name="tmp"/>
+		<SavePoseMover name="save_full" reference_name="full"/>
+		<KeepRegionMover name="keep_linker" start="15" end="28" />
+		<SavePoseMover name="save_linker" reference_name="linker"/>
+		<SavePoseMover name="restore_full" reference_name="full" restore_pose="1"/>
+		<SetupForSequenceSymmetryMover name="setup_seq_sym" sequence_symmetry_behaviour="keep_seq_sym" >
+			<SequenceSymmetry residue_selectors="linker_1,linker_2,linker_3,linker_4,linker_5" />
+		</SetupForSequenceSymmetryMover>
+		<FastDesign name="fd1" scorefxn="score_cst" ramp_down_constraints="false" repeats="2" movemap_disables_packing_of_fixed_chi_positions="true" packer_palette="palette" task_operations="resfile,keep_seq_sym">
+			<MoveMap name="frelax_mm" bb="0" chi="0" jump="0">
+			MoveMap name="frelax_mm">
+				<ResidueSelector selector="Glys_neighbor" chi="1" bb="1"/>
+			</MoveMap>
+		</FastDesign>
+	</MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+	<PROTOCOLS>
+		<Add mover="add_loop_residues_A"/> 
+		<Add mover="close_A"/> 
+		<Add mover="new_bond1"/> 
+		<Add mover="genkic1"/>
+		<Add mover="new_bond1"/> 
+
+		<Add mover="save_full"/> 
+		<Add mover="keep_linker"/> 
+		<Add mover="save_linker"/> 
+		<Add mover="restore_full"/> 
+		<Add mover="graft_linker_B"/> 
+		<Add mover="graft_linker_C"/> 
+		<Add mover="graft_linker_D"/> 
+		<Add mover="graft_linker_E"/> 
+		<Add mover="close_B"/> 
+		<Add mover="close_C"/> 
+		<Add mover="close_D"/> 
+		<Add mover="close_E"/> 
+
+		<Add mover="tree"/> 
+		<Add mover="sym"/> 
+		<Add mover="relax2"/> # relax chi and bb for glys
+		<Add filter="filter_interaction_glys_nodesign" />
+		<Add filter="filter_interaction_interchain_nodesign" />
+		<Add filter="count_bb_hbonds_glys_nodesign" />
+
+		<Add mover_name="setup_seq_sym" />
+		<Add mover="fd1"/>
+		<Add filter="full_holes" />
+		<Add filter="filter_packstat" />
+		<Add filter="filter_hydrophobic" />
+		<Add filter="buns_all_heavy_ball" />
+		<Add filter="exposed_hydrophobics" />
+		<Add filter="filter_interaction_glys" />
+		<Add filter="filter_interaction_interchain" />
+		<Add filter="count_bb_hbonds_glys" />
+		<Add filter="count_hbonds_glys" />
+		<Add filter="energy_glys" />
+		<Add filter="torsion_1_phi" />
+		<Add filter="torsion_2_phi" />
+		<Add filter="torsion_3_phi" />
+		<Add filter="torsion_4_phi" />
+		<Add filter="torsion_5_phi" />
+		<Add filter="torsion_6_phi" />
+		<Add filter="torsion_7_phi" />
+		<Add filter="torsion_8_phi" />
+		<Add filter="torsion_9_phi" />
+		<Add filter="torsion_10_phi" />
+		<Add filter="torsion_11_phi" />
+		<Add filter="torsion_12_phi" />
+		<Add filter="torsion_1_psi" />
+		<Add filter="torsion_2_psi" />
+		<Add filter="torsion_3_psi" />
+		<Add filter="torsion_4_psi" />
+		<Add filter="torsion_5_psi" />
+		<Add filter="torsion_6_psi" />
+		<Add filter="torsion_7_psi" />
+		<Add filter="torsion_8_psi" />
+		<Add filter="torsion_9_psi" />
+		<Add filter="torsion_10_psi" />
+		<Add filter="torsion_11_psi" />
+		<Add filter="torsion_12_psi" />
+	</PROTOCOLS>
+	<OUTPUT scorefxn="score_STD"/>
+</ROSETTASCRIPTS>
+
