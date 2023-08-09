@@ -1,0 +1,14 @@
+-in:file:s prot.pdb
+-parser:protocol run.xml
+-run:preserve_header
+-overwrite
+-nstruct 100000
+-out:file:silent out.silent
+-out:file:scorefile score.sc
+#-holes::dalphaball /home/cttm4a1/rosetta/main/source/external/DAlpahBall/DAlphaBall.gcc #Sockeye
+#-holes::dalphaball /home/cttm4a1/projects/def-plotkin/shared_projects/shawn/rosetta_src_2020.50.61505_bundle/main/source/external/DAlpahBall/DAlphaBall.gcc #Cedar
+-holes::dalphaball /home/cttm4a1/projects/def-plotkin/shared_projects/shawn/rosetta_bin_linux_2021.16.61629_bundle/main/source/external/DAlpahBall/DAlphaBall.gcc #Cedar
+#-holes::dalphaball /home/cttm4a1/projects/def-plotkin/shared_projects/shawn/rosetta_bin_linux_2018.48.60516_bundle/main/source/external/DAlpahBall/DAlphaBall.gcc #Cedar
+#-holes::dalphaball /storage5/shawn/rosetta_src_2020.50.61505_bundle/main/source/external/DAlpahBall/DAlphaBall.gcc #Drake
+#-enzdes:cstfile axispoint.cst
+-mute all
