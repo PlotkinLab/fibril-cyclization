@@ -30,8 +30,7 @@ Before running the script, edit the `$ROSETTA3` to be your Rosetta installed pat
 
 ## Reference
 
-The development of fibril-cyclization scripts is funded by academic research grants, including CIHR Transitional Operating Grant 2682 and Research Priority Announcement for Pandemic Preparedness and Health Emergencies, and Canada’s Digital Technology Supercluster. To help us continue development, we humbly ask that you cite the following papers:
+The development of fibril-cyclization scripts is funded by academic research grants, including CIHR Transitional Operating Grant 2682 and Research Priority Announcement for Pandemic Preparedness and Health Emergencies, and Canada’s Digital Technology Supercluster. To help us continue development, we respectfully ask that you cite the following papers:
 
 Cyclization Scaffolding for Improved Vaccine Immunogen Stability: Application to Tau Protein in Alzheimer’s Disease
-
-(Submitted)
+(In press: Journal of Chemical Information and Modeling)
